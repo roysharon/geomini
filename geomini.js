@@ -177,8 +177,8 @@
 			                 (sin(dist12) * cos(lat2)));
 			
 			if (sin(lon2 - lon1) > 0) {
-				brng12 = brngA;
-				brng21 = PI2 - brngB;
+				var brng12 = brngA;
+				var brng21 = PI2 - brngB;
 			} else {
 				brng12 = PI2 - brngA;
 				brng21 = brngB;
