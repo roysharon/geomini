@@ -167,7 +167,7 @@
 			
 			var dist12 = 2 * asin(sqrt(sin(dLat / 2) * sin(dLat / 2) + 
 			                           cos(lat1) * cos(lat2) * sin(dLon / 2) * sin(dLon / 2)));
-			if (dist12 == 0) return null;
+			if (dist12 == 0) return undefined;
 			
 			// initial/final bearings between points
 			var brngA = acos((sin(lat2) - sin(lat1) * cos(dist12)) / 
@@ -187,8 +187,8 @@
 			var alpha1 = (brng13 - brng12 + PI) % PI2 - PI;  // angle 2-1-3
 			var alpha2 = (brng21 - brng23 + PI) % PI2 - PI;  // angle 1-2-3
 			
-			if (sin(alpha1) == 0 && sin(alpha2) == 0) return null;  // infinite intersections
-			if (sin(alpha1) * sin(alpha2) < 0) return null;         // ambiguous intersection
+			if (sin(alpha1) == 0 && sin(alpha2) == 0) return undefined;  // infinite intersections
+			if (sin(alpha1) * sin(alpha2) < 0) return undefined;         // ambiguous intersection
 			
 			//alpha1 = abs(alpha1);
 			//alpha2 = abs(alpha2);
