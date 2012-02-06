@@ -29,6 +29,9 @@
 	
 	LatLng.prototype = {
 	
+		constructor :
+		LatLng,
+	
 		equals :
 		function (other) {
 			return other && other.y == this.y && other.x == this.x && other.r == this.r;
@@ -320,6 +323,9 @@
 	window['LatLngBounds'] = LatLngBounds;
 	
 	LatLngBounds.prototype = {
+	
+		constructor :
+		LatLngBounds,
 	
 		init :
 		function (s, w, n, e) {
