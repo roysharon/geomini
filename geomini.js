@@ -1,4 +1,4 @@
-// geomini.js - Geographical Micro Javascript Library
+// geomini.js - Geographical Javascript Micro Library
 // by Roy Sharon <roy@roysharon.com>, 2012-02-06
 // with a friendly MIT License (http://creativecommons.org/licenses/MIT/)
 
@@ -8,7 +8,7 @@
 
 	//-------- Utilities ----------------------------------------------------------
 	
-	var math = Math, int = parseInt, float = parseFloat, PI = math.PI, PI2 = 2 * PI, PI3 = 3 * PI, PI_4 = PI / 4,
+	var math = Math, int = parseInt, float = parseFloat, isnan = isNaN, PI = math.PI, PI2 = 2 * PI, PI3 = 3 * PI, PI_4 = PI / 4,
 	    min = math.min, max = math.max, abs = math.abs, pow = math.pow, round = math.round, floor = math.floor, sqrt = math.sqrt,
 	    sin = math.sin, cos = math.cos, atan2 = math.atan2, asin = math.asin, acos = math.acos, log = math.log, tan = math.tan,
 	    EARTH_RADIUS = 3440; // NM
@@ -65,8 +65,8 @@
 			if (!format) format = this.format || '%yd2\xb0%ym2.1\'%yc %xd3\xb0%xm2.1\'%xc';
 			var x = this.x, y = this.y;
 			return format.replace(/%(x|y)(?:(d|m)(\d)?(?:\.(\d))?|([cC]))/g, function(ig, a, w, p1, p2, cardinal) {
-				p1 = int(p1); if (isNaN(p1) || p1 <= 0) p1 = 0;
-				p2 = int(p2); if (isNaN(p2) || p2 <= 0) p2 = 0;
+				p1 = int(p1); if (isnan(p1) || p1 <= 0) p1 = 0;
+				p2 = int(p2); if (isnan(p2) || p2 <= 0) p2 = 0;
 				var m = pow(10, p2) * 60, isX = a == 'x', val = round((isX ? x : y) * m) / m;
 				if (cardinal) return (cardinal == 'c' ? val >= 0 : val < 0) ? (isX ? 'E' : 'N') : (isX ? 'W' : 'S');
 				
@@ -172,7 +172,7 @@
 			// initial/final bearings between points
 			var brngA = acos((sin(lat2) - sin(lat1) * cos(dist12)) / 
 			                 (sin(dist12) * cos(lat1)));
-			if (isNaN(brngA)) brngA = 0;  // protect against rounding
+			if (isnan(brngA)) brngA = 0;  // protect against rounding
 			var brngB = acos((sin(lat1) - sin(lat2) * cos(dist12)) / 
 			                 (sin(dist12) * cos(lat2)));
 			
@@ -216,7 +216,7 @@
 			var dLon = toRad(abs(point.x - this.x));
 			
 			var dPhi = log(tan(lat2 / 2 + PI_4) / tan(lat1 / 2 + PI_4));
-			var q = !isNaN(dLat / dPhi) ? dLat / dPhi : cos(lat1);  // E-W line gives dPhi=0
+			var q = !isnan(dLat / dPhi) ? dLat / dPhi : cos(lat1);  // E-W line gives dPhi=0
 			// if dLon over 180° take shorter rhumb across 180° meridian:
 			if (dLon > PI) dLon = PI2 - dLon;
 			var dist = sqrt(dLat * dLat + q * q * dLon * dLon) * R; 
@@ -245,7 +245,7 @@
 			var lat2 = lat1 + d * cos(brng);
 			var dLat = lat2 - lat1;
 			var dPhi = log(tan(lat2 / 2 + PI_4) / tan(lat1 / 2 + PI_4));
-			var q = !isNaN(dLat / dPhi) ? dLat / dPhi : cos(lat1);  // E-W line gives dPhi=0
+			var q = !isnan(dLat / dPhi) ? dLat / dPhi : cos(lat1);  // E-W line gives dPhi=0
 			var dLon = d * sin(brng) / q;
 			// check for some daft bugger going past the pole
 			if (abs(lat2) > PI / 2) lat2 = lat2 > 0 ? PI - lat2 : lat2 - PI;
