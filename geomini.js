@@ -295,7 +295,7 @@
 				p1 = int(p1) || 0;
 				p2 = int(p2) || 0;
 				o.p = (p1 ? dpat(p1) : '') + (p2 ? '.' + dpat(p2) : '');
-			} else return escapeRE(e);
+			} else return e;
 			list.push(o);
 			return '(' + o.p + ')';
 		});
